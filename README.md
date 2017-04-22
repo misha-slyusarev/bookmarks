@@ -1,2 +1,3 @@
-# bookmarks
-Personal bookmark keeper
+# Bookmarks
+
+Small application to keep your URLs as bookmarks.
