@@ -15,7 +15,7 @@ class Bookmark < ApplicationRecord
          OR title LIKE :search
          OR shortening LIKE :search
          OR tags.name LIKE :search',
-        { search: "%#{search}%" })
+        { search: "%#{search}%" }).uniq
     else
       unscoped
     end
