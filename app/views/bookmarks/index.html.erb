@@ -9,7 +9,7 @@
 
 <h1>Bookmarks</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th colspan="3"></th>
@@ -20,8 +20,8 @@
     <% @bookmarks.each do |bookmark| %>
       <tr>
         <td><%= link_to bookmark.title, bookmark %></td>
-        <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
-        <td><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +29,6 @@
 
 <br>
 
-<%= link_to 'New Bookmark', new_bookmark_path %>
+<%= link_to new_bookmark_path, class: 'btn btn-primary btn-xs' do %>
+  <i class="glyphicon glyphicon-plus"></i> New Bookmark
+<% end %>

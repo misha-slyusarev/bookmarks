@@ -2,9 +2,16 @@
 
 <h2><%= @bookmark.title %></h2>
 
-<%= @bookmark.url %><br>
-<%= @bookmark.shortening %><br>
-<%= @bookmark.tag_list %><br>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= link_to @bookmark.url, @bookmark.url %><br>
+    <%= @bookmark.shortening %><br>
+
+    <div class="well well-sm">
+      <%= @bookmark.tag_list %><br>
+    </div>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_bookmark_path(@bookmark) %> |
 <%= link_to 'Back', bookmarks_path %>
