@@ -3,6 +3,7 @@ class Bookmark < ApplicationRecord
   validates :url, http_url: true
 
   belongs_to :site
+  has_and_belongs_to_many :tags
 
   before_validation :set_site
   after_destroy :destroy_empty_site
@@ -12,7 +13,17 @@ class Bookmark < ApplicationRecord
       where('url LIKE :search OR title LIKE :search OR shortening LIKE :search',
         {search: "%#{search}%"})
     else
-      scoped
+      unscoped
+    end
+  end
+
+  def tag_list
+    self.tags.map(&:name).join(' ')
+  end
+
+  def tag_list=(list)
+    self.tags = list.split(' ').map do |tag_name|
+      Tag.find_or_create_by(name: tag_name)
     end
   end
 

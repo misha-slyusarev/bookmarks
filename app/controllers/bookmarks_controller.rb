@@ -67,6 +67,6 @@ class BookmarksController < ApplicationController
     end
 
     def bookmark_params
-      params.fetch(:bookmark, {}).permit(:title, :url, :shortening)
+      params.fetch(:bookmark, {}).permit(:title, :url, :shortening, :tag_list)
     end
 end
