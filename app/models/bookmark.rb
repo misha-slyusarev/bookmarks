@@ -9,9 +9,13 @@ class Bookmark < ApplicationRecord
   after_destroy :destroy_empty_site
 
   def self.search(search)
-    if search
-      where('url LIKE :search OR title LIKE :search OR shortening LIKE :search',
-        {search: "%#{search}%"})
+    if search.present?
+      joins(:tags).where(
+        'url LIKE :search
+         OR title LIKE :search
+         OR shortening LIKE :search
+         OR tags.name LIKE :search',
+        { search: "%#{search}%" })
     else
       unscoped
     end
