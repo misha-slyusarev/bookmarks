@@ -1,16 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @bookmark.title %></h2>
+<h4><%= @bookmark.title %></h4>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <%= link_to @bookmark.url, @bookmark.url %><br>
-    <%= @bookmark.shortening %><br>
+<div class="controls">
+  <p class="form-control-static"><%= link_to @bookmark.url, @bookmark.url %></p>
+  <p class="form-control-static"><%= @bookmark.shortening %></p>
+</div>
 
-    <div class="well well-sm">
-      <%= @bookmark.tag_list %><br>
-    </div>
-  </div>
+<div class="well well-sm">
+  <%= @bookmark.tag_list %><br>
 </div>
 
 <%= link_to 'Edit', edit_bookmark_path(@bookmark) %> |
