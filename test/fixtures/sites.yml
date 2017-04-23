@@ -1,7 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  url: MyString
+  id: 1
+  url: www.rubyonrails.org
 
 two:
-  url: MyString
+  id: 2
+  url: www.google.com

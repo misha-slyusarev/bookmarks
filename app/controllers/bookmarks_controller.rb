@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
+  before_action :set_bookmark, only: %i[show edit update destroy]
 
   # GET /bookmarks
   # GET /bookmarks.json
@@ -62,6 +62,7 @@ class BookmarksController < ApplicationController
   end
 
   private
+
     def set_bookmark
       @bookmark = Bookmark.find(params[:id])
     end
