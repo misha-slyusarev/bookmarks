@@ -9,10 +9,21 @@ class BookmarksControllerTest < ActionDispatch::IntegrationTest
       'shortening' => 'Shortening',
       'tag_list' => 'testing bookmark'
     }
+    @wrong_bookmark_params = {
+      'title' => 'Wrong bookmark params',
+      'url' => 'wrong url',
+      'shortening' => 'Shortening',
+      'tag_list' => 'wrong bookmark params'
+    }
   end
 
   test 'should get index' do
     get bookmarks_url
+    assert_response :success
+  end
+
+  test 'should get index with search' do
+    get bookmarks_url, params: { search: 'search' }
     assert_response :success
   end
 

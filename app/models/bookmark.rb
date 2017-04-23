@@ -15,7 +15,7 @@ class Bookmark < ApplicationRecord
          OR title LIKE :search
          OR shortening LIKE :search
          OR tags.name LIKE :search',
-        { search: "%#{search}%" }).uniq
+        { search: "%#{search}%" }).distinct
     else
       unscoped
     end
@@ -36,6 +36,7 @@ class Bookmark < ApplicationRecord
     def set_site
       host = URI.parse(self.url).host
       self.site = Site.find_or_create_by(url: host)
+    rescue URI::InvalidURIError
     end
 
     def destroy_empty_site
