@@ -18,17 +18,12 @@
 
 
 <table class="table">
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @bookmarks.each do |bookmark| %>
       <tr>
         <td><%= link_to bookmark.title, bookmark %></td>
         <td><%= link_to bookmark.url %></td>
+        <td><%= bookmark.shortening %></td>
         <td><%= concat_tag_list(bookmark.tag_list) %></td>
         <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-primary btn-xs' %></td>
         <td>
