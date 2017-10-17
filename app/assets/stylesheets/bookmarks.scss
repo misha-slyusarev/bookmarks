@@ -5,3 +5,9 @@
 .search-margin {
   margin: 15px 0 10px 0;
 }
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
