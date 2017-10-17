@@ -1,7 +1,7 @@
 <%= form_for(bookmark, html: {role: 'form'} ) do |f| %>
   <% if bookmark.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(bookmark.errors.count, "error") %> prohibited this bookmark from being saved:</h2>
+    <div id="error_explanation" class="alert alert-warning">
+      <h3><%= pluralize(bookmark.errors.count, "error") %> prohibited this bookmark from being saved:</h3>
 
       <ul>
       <% bookmark.errors.full_messages.each do |message| %>
@@ -31,5 +31,5 @@
     <%= f.text_area(:tag_list, class: 'form-control') %>
   </div>
 
-  <%= f.submit(class: 'btn btn-success') %>
+  <%= f.submit(class: 'btn btn-primary pull-right') %>
 <% end %>

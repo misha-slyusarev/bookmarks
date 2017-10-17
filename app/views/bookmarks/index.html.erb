@@ -22,7 +22,7 @@
       <% @bookmarks.each do |bookmark| %>
         <tr>
           <td><%= link_to bookmark.title, bookmark %></td>
-          <td><%= link_to bookmark.url %></td>
+          <td><%= link_to truncate(bookmark.url), bookmark.url %></td>
           <td><%= bookmark.shortening %></td>
           <td><%= concat_tag_list(bookmark.tag_list) %></td>
           <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-primary btn-xs' %></td>
@@ -41,6 +41,6 @@
 
 <br>
 
-<%= link_to new_bookmark_path, class: 'btn btn-primary btn-xs' do %>
+<%= link_to new_bookmark_path, class: 'btn btn-primary pull-right' do %>
   <i class="glyphicon glyphicon-plus"></i> Add Bookmark
 <% end %>
