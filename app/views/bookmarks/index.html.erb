@@ -1,40 +1,43 @@
 <p id="notice"><%= notice %></p>
 
-<%= form_tag bookmarks_path, method: 'get', id: "bookmarks_search" do %>
-  <div class="row">
-    <div class="col-lg-6">
-      <h3>Bookmarks</h3>
-    </div>
-    <div class="col-lg-6">
-      <div class="input-group m-t-3">
-        <%= text_field_tag :search, params[:search], class: "form-control" %>
-        <div class="input-group-btn">
-          <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+<% if @bookmarks.present? %>
+  <%= form_tag bookmarks_path, method: 'get', id: "bookmarks_search" do %>
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>Bookmarks</h3>
+      </div>
+      <div class="col-lg-6">
+        <div class="input-group search-margin">
+          <%= text_field_tag :search, params[:search], class: "form-control" %>
+          <div class="input-group-btn">
+            <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
+
+  <table class="table">
+    <tbody>
+      <% @bookmarks.each do |bookmark| %>
+        <tr>
+          <td><%= link_to bookmark.title, bookmark %></td>
+          <td><%= link_to bookmark.url %></td>
+          <td><%= bookmark.shortening %></td>
+          <td><%= concat_tag_list(bookmark.tag_list) %></td>
+          <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-primary btn-xs' %></td>
+          <td>
+            <%= link_to bookmark_path(bookmark), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+              <i class="glyphicon glyphicon-remove"></i> Delete
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>No bookmarks found. Try to add one</h3>
 <% end %>
-
-
-<table class="table">
-  <tbody>
-    <% @bookmarks.each do |bookmark| %>
-      <tr>
-        <td><%= link_to bookmark.title, bookmark %></td>
-        <td><%= link_to bookmark.url %></td>
-        <td><%= bookmark.shortening %></td>
-        <td><%= concat_tag_list(bookmark.tag_list) %></td>
-        <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-primary btn-xs' %></td>
-        <td>
-          <%= link_to bookmark_path(bookmark), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-remove"></i> Delete
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
