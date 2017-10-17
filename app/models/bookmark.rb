@@ -1,28 +1,26 @@
 class Bookmark < ApplicationRecord
-  validates :title, :url, presence: true
+  belongs_to :site, inverse_of: :bookmarks, touch: true
+  has_and_belongs_to_many :tags, inverse_of: :bookmarks
+
+  before_validation :prepare_url
+
+  validates :title, :url, :site, presence: true
   validates :url, http_url: true
 
-  belongs_to :site
-  has_and_belongs_to_many :tags
+  scope :includes_text, -> (text) {
+    joins(:tags).where('url LIKE :text
+      OR title LIKE :text
+      OR shortening LIKE :text
+      OR tags.name LIKE :text',
+      { text: "%#{text}%" })
+  }
 
-  before_validation :set_site
-  after_destroy :destroy_empty_site
-
-  def self.search(search)
-    if search.present?
-      joins(:tags).where(
-        'url LIKE :search
-         OR title LIKE :search
-         OR shortening LIKE :search
-         OR tags.name LIKE :search',
-        { search: "%#{search}%" }).distinct
-    else
-      unscoped
-    end
+  def self.search(search_text)
+    includes_text(search_text) or unscoped
   end
 
   def tag_list
-    self.tags.map(&:name).join(' ')
+    tags.map(&:name).join(' ')
   end
 
   def tag_list=(list)
@@ -33,13 +31,24 @@ class Bookmark < ApplicationRecord
 
   private
 
-    def set_site
-      host = URI.parse(self.url).host
-      self.site = Site.find_or_create_by(url: host)
-    rescue URI::InvalidURIError
+    def prepare_url
+      check_scheme
+      parse_url
+      set_site
     end
 
-    def destroy_empty_site
-      self.site.destroy if self.site.bookmarks.empty?
+    def check_scheme
+      self.url = "http://#{url}" unless url[/\A.*:\/\//]
+    end
+
+    def parse_url
+      @uri = URI.parse(url)
+    rescue URI::Error => e
+      logger.error("Couldn't parse URL: #{url}")
+      logger.error(e)
+    end
+
+    def set_site
+      self.site = Site.find_or_create_by(url: "#{@uri.scheme}://#{@uri.host}")
     end
 end
