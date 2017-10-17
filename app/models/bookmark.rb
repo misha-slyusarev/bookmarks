@@ -7,16 +7,16 @@ class Bookmark < ApplicationRecord
   validates :title, :url, :site, presence: true
   validates :url, http_url: true
 
-  scope :includes_text, -> (text) {
-    joins(:tags).where('url LIKE :text
-      OR title LIKE :text
-      OR shortening LIKE :text
-      OR tags.name LIKE :text',
-      { text: "%#{text}%" })
-  }
-
-  def self.search(search_text)
-    includes_text(search_text) or unscoped
+  scope :includes_text, -> (text) do
+    if text.present?
+      joins(:tags).where('tags.name LIKE :text
+        OR url LIKE :text
+        OR title LIKE :text
+        OR shortening LIKE :text',
+        { text: "%#{text}%" }).distinct
+    else
+      all
+    end
   end
 
   def tag_list
