@@ -1,15 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h4><%= @bookmark.title %></h4>
+<h3><%= @bookmark.title %></h3>
 
 <div class="controls">
   <p class="form-control-static"><%= link_to @bookmark.url, @bookmark.url %></p>
   <p class="form-control-static"><%= @bookmark.shortening %></p>
 </div>
 
-<div class="well well-sm">
-  <%= concat_tag_list(@bookmark.tag_list) %><br>
-</div>
+<h4>Tags:
+  <% @bookmark.tag_list.split.each do |tag_name| %>
+    <%= content_tag(:span, tag_name, class: "tag label label-info") %>
+  <% end %>
+</h4>
+
+<hr class="my-4">
 
 <%= link_to 'Back', bookmarks_path %>
 <%= link_to 'Edit', edit_bookmark_path(@bookmark), class: 'btn btn-primary pull-right' %>
