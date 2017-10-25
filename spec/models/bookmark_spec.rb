@@ -12,15 +12,15 @@ RSpec.describe Bookmark, :type => :model do
   end
 
   context 'when url is already known to the system' do
-    let(:known_url) { 'http://known' }
+    let(:known_url) { 'http://known.url' }
     let(:duplicate) { create(:bookmark, url: known_url) }
-    let!(:site) { create(:site, url: known_url) }
+    let!(:site) { create(:bookmark, url: known_url).site }
 
     it "doesn't create new Site" do
       expect{ duplicate }.to change{ Site.count }.by(0)
     end
-    it 'attaches new bookamark to existing Site' do
-      expect( duplicate.site ).to eq(site)
+    it 'attaches new bookmark to existing Site' do
+      expect( duplicate.site.url ).to eq(site.url)
     end
   end
 
