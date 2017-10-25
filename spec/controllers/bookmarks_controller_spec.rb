@@ -29,7 +29,6 @@ RSpec.describe BookmarksController, type: :controller do
 
   describe 'POST create' do
 
-
     subject(:request) { post :create, params: params }
 
     context 'with correct params' do
