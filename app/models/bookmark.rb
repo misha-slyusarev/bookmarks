@@ -1,13 +1,16 @@
 class Bookmark < ApplicationRecord
-  belongs_to :site, inverse_of: :bookmarks, touch: true
+  belongs_to :site, inverse_of: :bookmarks
   has_and_belongs_to_many :tags, inverse_of: :bookmarks
 
   before_validation :prepare_url
+  around_destroy :destroy_empty_site
 
   validates :title, :url, :site, presence: true
   validates :url, http_url: true
 
   scope :includes_text, -> (text) do
+    return all if text.blank?
+
     joins(:tags).where('tags.name LIKE :text
       OR url LIKE :text
       OR title LIKE :text
@@ -20,7 +23,7 @@ class Bookmark < ApplicationRecord
   end
 
   def tag_list=(list)
-    self.tags = list.split(' ').map do |tag_name|
+    self.tags = list.split(' ').uniq.map do |tag_name|
       Tag.find_or_create_by(name: tag_name)
     end
   end
@@ -46,5 +49,11 @@ class Bookmark < ApplicationRecord
 
     def set_site
       self.site = Site.find_or_create_by(url: "#{@uri.scheme}://#{@uri.host}")
+    end
+
+    def destroy_empty_site
+      current_site = self.site
+      yield
+      current_site.destroy if current_site.bookmarks.size == 0
     end
 end

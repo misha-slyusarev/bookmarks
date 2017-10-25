@@ -33,4 +33,14 @@ RSpec.describe Bookmark, :type => :model do
     bookmark.url = nil
     expect(bookmark).not_to be_valid
   end
+
+  context 'when associated Site left without bookmarks' do
+    let(:site) { bookmark.site }
+
+    before { bookmark.destroy }
+
+    it 'removes the site record' do
+      expect{ site.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end

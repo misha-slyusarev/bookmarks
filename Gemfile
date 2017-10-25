@@ -28,6 +28,8 @@ gem 'bootstrap-sass', '~> 3.3.7'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'simplecov', '~> 0.14.1'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker', '~> 1.8'
 end
 
 group :development do
@@ -40,6 +42,4 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 3.7'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker', '~> 1.8'
 end

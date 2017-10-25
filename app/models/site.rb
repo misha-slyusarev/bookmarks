@@ -3,6 +3,4 @@ class Site < ApplicationRecord
 
   validates :url, presence: true
   validates :url, http_url: true
-
-  after_touch :destroy, if: -> { bookmarks.empty? }
 end
