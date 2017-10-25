@@ -1,4 +1,6 @@
-<div id="notice" class="alert alert-info"><%= notice %></div>
+<% if notice %>
+  <div id="notice" class="alert alert-info mt-1"><%= notice %></div>
+<% end %>
 
 <h3><%= @bookmark.title %></h3>
 
