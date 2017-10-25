@@ -8,15 +8,13 @@ class Bookmark < ApplicationRecord
   validates :url, http_url: true
 
   scope :includes_text, -> (text) do
-    if text.present?
-      joins(:tags).where('tags.name LIKE :text
-        OR url LIKE :text
-        OR title LIKE :text
-        OR shortening LIKE :text',
-        { text: "%#{text}%" }).distinct
-    else
-      all
-    end
+    return all unless text.present?
+
+    joins(:tags).where('tags.name LIKE :text
+      OR url LIKE :text
+      OR title LIKE :text
+      OR shortening LIKE :text',
+      { text: "%#{text}%" }).distinct
   end
 
   def tag_list
@@ -38,7 +36,7 @@ class Bookmark < ApplicationRecord
     end
 
     def check_scheme
-      self.url = "http://#{url}" unless url[/\A.*:\/\//]
+      self.url = "http://#{url}" unless url && url[/\A.*:\/\//]
     end
 
     def parse_url

@@ -37,3 +37,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end
+
+group :test do
+  gem 'rspec-rails', '~> 3.7'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker', '~> 1.8'
+end
