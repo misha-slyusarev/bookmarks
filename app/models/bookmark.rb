@@ -8,8 +8,6 @@ class Bookmark < ApplicationRecord
   validates :url, http_url: true
 
   scope :includes_text, -> (text) do
-    return all unless text.present?
-
     joins(:tags).where('tags.name LIKE :text
       OR url LIKE :text
       OR title LIKE :text
