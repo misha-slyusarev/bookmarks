@@ -2,9 +2,9 @@
 
 Small application to keep your URLs as bookmarks.
 
-![Main window](/public/main_window?raw=true "Main window")
-![Edit window](/public/edit_window?raw=true "Edit window")
-![Show window](/public/show_window?raw=true "Show window")
+![Main window](/public/main_window.png?raw=true "Main window")
+![Edit window](/public/edit_window.png?raw=true "Edit window")
+![Show window](/public/show_window.png?raw=true "Show window")
 
 ## Run
 
