@@ -1,9 +1,14 @@
 # Bookmarks
 
-Small application to keep your URLs as bookmarks.
+Small application to keep your URLs as bookmarks. This is a showcase application.
 
+*Main window*
 ![Main window](/public/main_window.png?raw=true "Main window")
+
+*Edit window*
 ![Edit window](/public/edit_window.png?raw=true "Edit window")
+
+*Show window*
 ![Show window](/public/show_window.png?raw=true "Show window")
 
 ## Run
